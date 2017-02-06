@@ -80,7 +80,6 @@ class Rect {
 
 class Square extends Rect {
   /**
-   * 
    * @private
    **/
   constructor (edge) {
@@ -94,3 +93,17 @@ var sq = new Square(3)
 
 console.log(`rect's area is ${r.getArea()}`)
 console.log(`square's are is ${sq.getArea()}`)
+
+// object refs
+var a = { score: 50 }
+var b = a
+a.score += 10
+console.log(b)
+
+/*
+var a = new String('asdf')
+var b = a
+a.hi = 5
+console.log(b)
+*/
+
