@@ -27,6 +27,12 @@ io.on('connection', function (socket) {
       player.id = socket.id
       socket.broadcast.emit('playerMoved', player)
   })
+
+  socket.on('disconnect', function () {
+    console.log(`${socket.id} disconnected`)
+    delete players[socket.id]
+    socket.broadcast.emit('playerDisconnected', socket.id)
+  })
 })
 
 http.listen(3000, function(){

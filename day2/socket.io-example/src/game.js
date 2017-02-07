@@ -55,8 +55,13 @@ socket.on('connect', function () {
         players = serverPlayers
         players[myId] = myPlayer
     })
+
     socket.on('playerMoved', function (player) {
         players[player.id] = player
+    })
+
+    socket.on('playerDisconnected', function (playerId) {
+        delete players[playerId]
     })
 })
 
