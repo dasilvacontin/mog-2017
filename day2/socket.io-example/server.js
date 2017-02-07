@@ -12,24 +12,21 @@ app.use(function (req, res, next) {
 })
 */
 
+const players = {}
+
 app.use(express.static('public'))
 
-function hiHandler (number) {
-    console.log(arguments)
-    const socket = this
-    console.log(`user sent hi, and number ${number}`)
-    console.log(socket.id)
-    /*
-        socket.emit('')
-        socket.broadcast()
-        io.sockets.emit()
-    */
-}
-
 io.on('connection', function (socket) {
-  console.log('a user connected')
+  console.log(`${socket.id} connected`)
 
-  socket.on('hi', hiHandler)
+  socket.emit('world:init', players, socket.id)
+
+  socket.on('move', function (player) {
+      console.log(`${socket.id} moved`)
+      players[socket.id] = player
+      player.id = socket.id
+      socket.broadcast.emit('playerMoved', player)
+  })
 })
 
 http.listen(3000, function(){
