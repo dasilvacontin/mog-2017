@@ -1,0 +1,79 @@
+<head>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById('myCanvas')
+        canvas.width = window.innerWidth
+        canvas.height = window.innerHeight
+
+        const ctx = canvas.getContext('2d')
+        
+        const player = {
+            x: 100,
+            y: 100,
+            edge: 50
+        }
+
+        const camera = {
+          x: window.innerWidth / 2,
+          y: window.innerHeight / 2
+        } 
+
+        const moveVector = {
+          x: 0,
+          y: 0
+        }
+        document.addEventListener('mousemove', function (event) {
+          moveVector.x = event.pageX - (window.innerWidth / 2)
+          moveVector.y = event.pageY - (window.innerHeight / 2)
+        })
+
+        function render () {
+          requestAnimationFrame(render)
+
+          ctx.fillStyle = 'white'
+          ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+          ctx.save()
+          ctx.translate(
+            -(camera.x - (window.innerWidth / 2)),
+            -(camera.y - (window.innerHeight / 2))
+          )
+
+          for (let x = 0; x < window.innerWidth; x += 50) {
+            for (let y = 0; y < window.innerHeight; y += 50) {
+              ctx.fillStyle = 'black'
+              ctx.textAlign = 'center'
+              ctx.fillText(`(${x},${y})`, x, y)
+              // ctx.fillRect(x - 5, y - 5, 10, 10)
+            }
+          }
+
+          player.x += moveVector.x / 10
+          player.y += moveVector.y / 10
+
+          ctx.fillStyle = 'blue'
+          ctx.fillRect(
+              player.x - player.edge / 2,
+              player.y - player.edge / 2,
+              player.edge,
+              player.edge
+          )
+          ctx.restore()
+
+          camera.x += (player.x - camera.x) / 20
+          camera.y += (player.y - camera.y) / 20
+        }
+        requestAnimationFrame(render)
+    </script>
+</body>
