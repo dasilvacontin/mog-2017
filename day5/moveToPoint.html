@@ -1,0 +1,69 @@
+
+<head>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        const canvas = document.createElement('canvas')
+        canvas.width = window.innerWidth
+        canvas.height = window.innerHeight
+        document.body.appendChild(canvas)
+
+        const ctx = canvas.getContext('2d')
+
+        const player = {
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight
+        }
+
+        const lastClick = {
+            x: window.innerWidth / 2,
+            y: window.innerHeight / 2
+        }
+        document.addEventListener('mousedown', (event) => {
+            lastClick.x = event.pageX
+            lastClick.y = event.pageY
+        })
+
+        const EDGE = 50
+        const V = 5
+
+        function mainLoop () {
+            requestAnimationFrame(mainLoop)
+            ctx.fillStyle = 'white'
+            ctx.globalAlpha = 0.5
+            ctx.fillRect(0, 0, canvas.width, canvas.height)
+            ctx.globalAlpha = 1
+
+            // ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+            const moveVector = {
+                x: lastClick.x - player.x,
+                y: lastClick.y - player.y
+            }
+            const vectorSize = Math.sqrt(
+                Math.pow(moveVector.x, 2) +
+                Math.pow(moveVector.y, 2)
+            )
+            if (vectorSize > V) {
+                moveVector.x *= V / vectorSize
+                moveVector.y *= V / vectorSize
+            }
+
+            player.x += moveVector.x
+            player.y += moveVector.y
+
+            ctx.fillStyle = 'blue'
+            ctx.fillRect(player.x - EDGE / 2, player.y - EDGE / 2, EDGE, EDGE)
+        }
+        requestAnimationFrame(mainLoop)
+    </script>
+</body>
