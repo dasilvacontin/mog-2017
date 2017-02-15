@@ -34,7 +34,7 @@ Middleware functions can also define conditions under which they are executed. I
 app.METHOD(PATH, HANDLER)
 ```
 
-### HTTP Methods
+## HTTP Methods
 
 There's multiple HTTP methods. You can specify for which HTTP method your middleware executes:
 
@@ -65,7 +65,7 @@ You can read more about HTTP Methods [here]( http://www.restapitutorial.com/less
 
 You can test your server against different types of requests using [Postman](https://www.getpostman.com/).
 
-### Path
+## Path
 
 You can make middleware functions execute only when a desired path matches 
 the request's URL.
