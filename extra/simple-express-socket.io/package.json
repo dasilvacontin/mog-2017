@@ -4,11 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prebuild": "npm test",
+    "build": "browserify src/client.js -o public/bundle.js",
+    "test": "standard src",
+    "start": "node src/server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.14.1"
+    "express": "^4.14.1",
+    "socket.io": "^1.7.2",
+    "socket.io-client": "^1.7.2"
+  },
+  "devDependencies": {
+    "browserify": "^14.1.0",
+    "standard": "^8.6.0"
   }
 }
