@@ -133,7 +133,7 @@ app.use(express.static('public'))
 /**
  * How to handle dynamic paths? e.g. for handling paths for user profiles?
  * Use the following syntax, and you'll be able to obtain the dynamic part
- * as a variable.
+ * as a parameter in `req.params`.
  */
 app.get('/user/:userId', function (req, res) {
   const userId = req.params.userId
@@ -149,7 +149,8 @@ app.get('/user/:userId', function (req, res) {
 })
 
 /**
- * Finally, tell the Express app to start listening to a port in your computer. * It's a good practise to use an environment variable for easy customisation.
+ * Finally, tell the Express app to start listening to a port in your computer. 
+ * It's a good practise to use an environment variable for easy customisation.
  * 
  * You can set environment variables for a process you want to execute 
  * prepending them on the command line:
